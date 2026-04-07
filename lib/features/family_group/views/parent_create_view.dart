@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/group_provider.dart';
-import '../../task_board/views/parent/parent_task_board_view.dart';
+import '/core/widgets/parent_nav_scaffold.dart';
 
 class ParentCreateView extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
@@ -16,6 +16,7 @@ class ParentCreateView extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (groupProvider.currentGroup == null) ...[
               const Text('為你的家庭取個名字吧', style: TextStyle(fontSize: 18)),
@@ -37,20 +38,25 @@ class ParentCreateView extends StatelessWidget {
               // 建立成功後顯示序號
               const Icon(Icons.check_circle, color: Colors.green, size: 60),
               const SizedBox(height: 20),
-              Text('家庭「${groupProvider.currentGroup!.name}」建立成功！', style: const TextStyle(fontSize: 20)),
+              Text('家庭「${groupProvider.currentGroup!.name}」建立成功！',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20)),
               const SizedBox(height: 20),
-              const Text('請讓孩子輸入以下序號加入：', style: TextStyle(fontSize: 16)),
+              const Text('請讓孩子輸入以下序號加入：',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16)),
               Text(
                 groupProvider.currentGroup!.joinCode,
+                textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.blue),
               ),
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
-                  // 導航到任務看板首頁，並把前面的頁面清掉 (避免按返回鍵又回到產生序號頁)
+                  // 家長完成建立後，也要跳轉到家長的「導覽列外殼」
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (_) => ParentTaskBoardView()),
+                    MaterialPageRoute(builder: (_) => const ParentNavScaffold()), // 剛才寫的那個
                     (route) => false,
                   );
                 },

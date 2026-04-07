@@ -20,7 +20,7 @@ class TaskProvider extends ChangeNotifier {
     );
     
     _tasks.add(newTask);
-    notifyListeners(); // 📢 廣播：任務列表更新囉！畫面請重繪！
+    notifyListeners(); // 任務列表更新
   }
   void submitTaskForReview(String taskId) {
     final taskIndex = _tasks.indexWhere((t) => t.id == taskId);

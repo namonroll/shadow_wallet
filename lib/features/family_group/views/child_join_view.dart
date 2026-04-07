@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/group_provider.dart';
 import '../../auth/providers/auth_provider.dart';
+import '/core/widgets/child_nav_scaffold.dart';
 
 class ChildJoinView extends StatelessWidget {
   final TextEditingController _codeController = TextEditingController();
@@ -35,16 +36,21 @@ class ChildJoinView extends StatelessWidget {
                 : ElevatedButton(
                     onPressed: () async {
                       bool success = await context.read<GroupProvider>().joinGroup(_codeController.text);
+                      // ... 前面 success 判斷不變 ...
                       if (success) {
-                        // 更新 AuthProvider 狀態
                         String newGroupId = context.read<GroupProvider>().currentGroup!.id;
                         context.read<AuthProvider>().updateUserGroup(newGroupId);
                         
-                        // 加入成功，顯示彈窗
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('成功加入家庭！')),
                         );
-                        // TODO: 導航到小孩的任務首頁
+
+                        // 🌟 關鍵修正：跳轉到「帶有導覽列」的外殼
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (_) => const ChildNavScaffold()), // 剛才寫的那個
+                          (route) => false, // 清空導航堆疊，防止按返回鍵回到加入頁
+                        );
                       }
                     },
                     child: const Text('加入'),
