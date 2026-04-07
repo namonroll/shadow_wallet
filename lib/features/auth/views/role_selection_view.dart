@@ -9,7 +9,7 @@ class RoleSelectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('歡迎使用教育錢包')),
+      appBar: AppBar(title: const Text('影子錢包')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -18,7 +18,7 @@ class RoleSelectionView extends StatelessWidget {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
-                context.read<AuthProvider>().setRoleAndLogin(UserRole.parent, '爸爸');
+                context.read<AuthProvider>().setRoleAndLogin(UserRole.parent, '阿明');
                 Navigator.push(context, MaterialPageRoute(builder: (_) => ParentCreateView()));
               },
               child: const Padding(
