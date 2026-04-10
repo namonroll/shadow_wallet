@@ -14,7 +14,7 @@ class RoleSelectionView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('請選擇你的身分', style: TextStyle(fontSize: 24)),
+            const Text('身分', style: TextStyle(fontSize: 24)),
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {

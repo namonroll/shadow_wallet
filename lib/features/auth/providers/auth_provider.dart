@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/models/user_model.dart'; // 確保 UserRole 的 enum 是定義在這裡的
-
+//身分資料先寫死在provider裡，等後端串接了再改成用service從後端拿
 class AuthProvider extends ChangeNotifier {
   // 核心資料：維持使用 UserModel 作為唯一的資料來源
   UserModel? _currentUser;
@@ -23,7 +23,6 @@ class AuthProvider extends ChangeNotifier {
   // 2. [操作資料的方法 (Methods)]
   // ==========================================
 
-  // 保留原本的方法：這樣你的身分選擇頁 (RoleSelectionView) 就不會報錯
   void setRoleAndLogin(UserRole role, String name) {
     _currentUser = UserModel(
       id: 'u_123',
