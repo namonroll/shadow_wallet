@@ -24,7 +24,7 @@ class ChildJoinView extends StatelessWidget {
               controller: _codeController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: '家庭序號 (測試請輸入 1234)',
+                labelText: '家庭序號 (測試請輸入 9999)',
               ),
             ),
             const SizedBox(height: 20),

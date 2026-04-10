@@ -1,11 +1,11 @@
 import '../../../core/models/group_model.dart';
-
+//先寫死資料，之後再接後端
 class GroupMockService {
   // 模擬資料庫中已經存在的一個家庭
   final GroupModel _mockDatabaseGroup = GroupModel(
     id: 'g_101',
-    name: '王小明的家',
-    joinCode: '1234', // 測試用的加入序號
+    name: '小明家',
+    joinCode: '9999', // 測試用的加入序號
   );
 
   // 模擬：透過序號加入群組
