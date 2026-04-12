@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../features/task_board/views/parent/parent_task_board_view.dart';
+import '../../features/family_group/views/parent_member_list_view.dart';
+import '../../features/profile/views/parent_profile_view.dart';
+
 
 class ParentNavScaffold extends StatefulWidget {
   const ParentNavScaffold({super.key});
@@ -13,8 +16,8 @@ class _ParentNavScaffoldState extends State<ParentNavScaffold> {
 
   final List<Widget> _pages = [
     ParentTaskBoardView(), // 管理任務清單
-    const Center(child: Text('家庭成員管理')), // 查看小孩表現
-    const Center(child: Text('系統設定')),
+    ParentMemberListView(), // 查看小孩表現
+    ParentProfileView(), // 設定頁面
   ];
 
   @override

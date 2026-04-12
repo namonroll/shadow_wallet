@@ -30,7 +30,8 @@ class ChildProfileView extends StatelessWidget {
           leading: const Icon(Icons.logout, color: Colors.red),
           title: const Text('登出', style: TextStyle(color: Colors.red)),
           onTap: () {
-            // 這裡可以寫登出的邏輯
+            // 清除登入狀態並跳回 RoleSelectionView
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           },
         ),
       ],

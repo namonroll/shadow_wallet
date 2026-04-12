@@ -19,7 +19,7 @@ class ParentCreateView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (groupProvider.currentGroup == null) ...[
-              const Text('為你的家庭取個名字吧', style: TextStyle(fontSize: 18)),
+              const Text('建立家庭群組', style: TextStyle(fontSize: 18)),
               const SizedBox(height: 20),
               TextField(
                 controller: _nameController,
