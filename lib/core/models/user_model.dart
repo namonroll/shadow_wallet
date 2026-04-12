@@ -13,5 +13,5 @@ class UserModel {
     this.groupId,
   });
 
-  // 未來接 API 時，這裡會寫 fromJson 和 toJson
+
 }
