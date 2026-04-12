@@ -77,17 +77,11 @@ class _ParentMemberEditViewState extends State<ParentMemberEditView> {
   }
 
   Widget _buildPersonalityChips() {
-    return Wrap(
-      spacing: 8.0,
-      children: ChildPersonality.values.map((personality) {
-        return ChoiceChip(
-          label: Text(personality.label.split(' ')[0] + ' ' + personality.label.split(' ')[1]), // 只顯示 Icon 和名字
-          selected: _selectedPersonality == personality,
-          onSelected: (bool selected) {
-            setState(() => _selectedPersonality = personality);
-          },
-        );
-      }).toList(),
+    return DropdownButtonFormField<ChildPersonality>(
+      value: _selectedPersonality,
+      decoration: const InputDecoration(border: OutlineInputBorder()),
+      items: ChildPersonality.values.map((style) => DropdownMenuItem(value: style, child: Text(style.label))).toList(),
+      onChanged: (val) => setState(() => _selectedPersonality = val!),
     );
   }
 }
