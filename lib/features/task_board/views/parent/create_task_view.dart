@@ -69,7 +69,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
             TextField(
               controller: _coinsController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: '獎勵影子幣', border: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: '獎勵金額', border: OutlineInputBorder()),
             ),
             // ... 下方的發布按鈕保持原樣 ...
             const SizedBox(height: 40),
