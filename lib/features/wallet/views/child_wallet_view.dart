@@ -14,7 +14,6 @@ class ChildWalletView extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          // 漂亮的錢包卡片
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(30),
