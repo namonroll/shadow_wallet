@@ -47,8 +47,7 @@ lib/
     └── wallet/          # 5. 錢包(餘額計算、利息派發、交易明細)
 
 
-#要跑的話
-
+要跑的話
 在main.dart run或是terminal輸入flutter run
 
 chrome可以直接跑
