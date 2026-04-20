@@ -9,7 +9,7 @@ class RoleSelectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('影子錢包')),
+      appBar: AppBar(title: const Text('成長錢包')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +23,7 @@ class RoleSelectionView extends StatelessWidget {
               },
               child: const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Text('我是家長', style: TextStyle(fontSize: 20)),
+                child: Text('家長', style: TextStyle(fontSize: 20)),
               ),
             ),
             const SizedBox(height: 20),
@@ -34,7 +34,7 @@ class RoleSelectionView extends StatelessWidget {
               },
               child: const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Text('我是小孩', style: TextStyle(fontSize: 20)),
+                child: Text('小孩', style: TextStyle(fontSize: 20)),
               ),
             ),
           ],

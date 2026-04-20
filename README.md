@@ -1,6 +1,6 @@
 # Shadow Wallet
 
-> 💡 **目前狀態：** 開發中。資料暫時寫死在 Service/和Provider/
+>**資料大部分寫死在lib/core/mock/mock_database.dart，provider直接從這邊拿
 
 ---
 
@@ -31,9 +31,7 @@ lib/
 ├── app.dart             # MaterialApp 設定、全域主題設定
 │
 ├── core/                # 全域共用模組
-│   ├── constants/       # 顏色 (app_colors)、主題 (app_theme)、API 網址
 │   ├── models/          # UserRole, GroupModel 等基礎資料模型
-│   ├── network/         # Dio 封裝與請求攔截
 │   ├── router/          # AppRouter 頁面導航管理
 │   ├── services/        # 儲存 (SharedPreferences)、認證服務
 │   ├── utils/           # 貨幣轉換、日期格式化工具
