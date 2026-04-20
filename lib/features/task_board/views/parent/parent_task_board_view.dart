@@ -92,7 +92,7 @@ class _ParentTaskBoardViewState extends State<ParentTaskBoardView> {
                           
                           // 顯示成功提示
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('✅ 已核准任務！發放 ${task.rewardCoins} 影子幣。')),
+                            SnackBar(content: Text('✅ 已核准任務！發放 ${task.rewardCoins} 幣。')),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -113,7 +113,7 @@ class _ParentTaskBoardViewState extends State<ParentTaskBoardView> {
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: ListTile(
                         title: Text(task.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Text('獎勵：${task.rewardCoins} 影子幣', style: const TextStyle(color: Colors.orange)),
+                        subtitle: Text('獎勵：${task.rewardCoins} 幣', style: const TextStyle(color: Colors.orange)),
                         trailing: trailingWidget, // 放上我們剛剛判斷好的元件
                       ),
                     );
