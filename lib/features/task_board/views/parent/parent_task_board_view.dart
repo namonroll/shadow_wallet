@@ -32,7 +32,7 @@ class _ParentTaskBoardViewState extends State<ParentTaskBoardView> {
     final taskProvider = context.watch<TaskProvider>();
     final children = groupProvider.members;
 
-    //  關鍵修改：只抓取目前選中小孩的任務
+    // 抓取目前選中小孩的任務
     final childTasks = _selectedChild != null 
         ? taskProvider.getTasksForChild(_selectedChild!) 
         : [];

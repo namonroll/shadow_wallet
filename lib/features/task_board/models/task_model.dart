@@ -10,14 +10,14 @@ class TaskModel {
   final String id;
   final String title;
   final int rewardCoins;
-  final String assigneeName; // 紀錄是分派給哪個小孩的
+  final String assigneeName;
   TaskStatus status;
 
   TaskModel({
     required this.id,
     required this.title,
     required this.rewardCoins,
-    required this.assigneeName, // 必填
+    required this.assigneeName,
     this.status = TaskStatus.available,
   });
 }

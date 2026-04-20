@@ -7,7 +7,7 @@ class MockData {
   // 1. 錢包初始餘額
   static const int initialBalance = 1000;
 
-  // 2. 預設任務列表 (使用 getter 確保每次拿到的都是新的物件)
+  // 2. 預設任務列表 
   static List<TaskModel> get initialTasks => [
         TaskModel(id: 't_1', title: '洗碗', rewardCoins: 15,assigneeName: '小明'),
         TaskModel(id: 't_2', title: '背 10 個英文單字', rewardCoins: 30, assigneeName: '小華'),

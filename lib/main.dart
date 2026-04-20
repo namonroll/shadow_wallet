@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // 引入套件
+import 'package:provider/provider.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/views/role_selection_view.dart';
 import 'features/family_group/providers/group_provider.dart';
@@ -8,10 +8,9 @@ import 'features/wallet/providers/wallet_provider.dart';
 
 void main() {
   runApp(
-    // 使用 MultiProvider，因為以後還會有 WalletProvider, TaskProvider
     MultiProvider(
       providers: [
-        // 把剛剛寫好的 AuthProvider 註冊進來
+        // 把Provider 註冊進來
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => GroupProvider()),
         ChangeNotifierProvider(create: (_) => TaskProvider()),

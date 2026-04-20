@@ -3,7 +3,7 @@ import '../models/task_model.dart';
 import '../../../core/mock/mock_database.dart'; // 引入 MockData
 
 class TaskProvider extends ChangeNotifier {
-  // 修改：從 MockData 取得初始任務 (使用 List.from)
+  // MockData 取得初始任務 (使用 List.from)
   final List<TaskModel> _tasks = List.from(MockData.initialTasks);
 
   // 取得所有任務 (一般情況用不到，但保留著)
@@ -14,7 +14,7 @@ class TaskProvider extends ChangeNotifier {
     return _tasks.where((task) => task.assigneeName == childName).toList();
   }
 
-  //修改：新增任務時，必須傳入是「分派給哪個小孩」
+  //新增任務時，必須傳入分派給哪個小孩
   void addTask(String title, int coins, String assigneeName) {
     final newTask = TaskModel(
       id: 't_${DateTime.now().millisecondsSinceEpoch}',
