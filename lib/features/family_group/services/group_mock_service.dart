@@ -2,11 +2,10 @@ import '../../../core/mock/mock_database.dart'; // 引入統一資料倉庫
 import '../../../core/models/group_model.dart';
 
 class GroupMockService {
-  // 模擬：透過序號加入群組
   Future<GroupModel> joinGroupByCode(String code) async {
-    await Future.delayed(const Duration(seconds: 1)); // 模擬網路延遲
+    await Future.delayed(const Duration(seconds: 1));
     
-    // 改為比對 MockData 裡的序號
+
     if (code == MockData.testJoinCode) {
       return MockData.initialGroup; 
     } else {
@@ -14,7 +13,7 @@ class GroupMockService {
     }
   }
 
-  // 模擬：家長建立新群組
+  // 家長建立新群組
   Future<GroupModel> createGroup(String familyName) async {
     await Future.delayed(const Duration(seconds: 1));
     // 這裡可以回傳一個基於 MockData 格式的新物件

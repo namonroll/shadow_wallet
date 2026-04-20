@@ -5,8 +5,8 @@ import '../../providers/task_provider.dart';
 import '/core/mock/mock_database.dart';
 
 class CreateTaskView extends StatefulWidget {
-  final String childName; // 傳入是幫哪個小孩發任務
-  final ChildPersonality personality; // 傳入性格
+  final String childName;
+  final ChildPersonality personality; 
 
   const CreateTaskView({super.key, required this.childName, required this.personality});
 
@@ -20,7 +20,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
 
   @override
   Widget build(BuildContext context) {
-    // 取得該性格的推薦任務
+    // 取得推薦任務
     final recommendations = MockData.recommendedTasks[widget.personality] ?? [];
 
     return Scaffold(
