@@ -1,57 +1,112 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../family_group/providers/group_provider.dart';
 import '../../providers/task_provider.dart';
 import 'create_task_view.dart';
-import '../../../wallet/providers/wallet_provider.dart';
-import '../../models/task_model.dart';
+import '../../../../core/models/member_profile_enums.dart';
 
-class ParentTaskBoardView extends StatelessWidget {
+class ParentTaskBoardView extends StatefulWidget {
+  const ParentTaskBoardView({super.key});
+
+  @override
+  State<ParentTaskBoardView> createState() => _ParentTaskBoardViewState();
+}
+
+class _ParentTaskBoardViewState extends State<ParentTaskBoardView> {
+  String? _selectedChild;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final members = context.read<GroupProvider>().members;
+      if (members.isNotEmpty) {
+        setState(() => _selectedChild = members.first);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // 監聽任務列表
-    final tasks = context.watch<TaskProvider>().tasks;
+    final groupProvider = context.watch<GroupProvider>();
+    final taskProvider = context.watch<TaskProvider>();
+    final children = groupProvider.members;
+
+    //  關鍵修改：只抓取目前選中小孩的任務
+    final childTasks = _selectedChild != null 
+        ? taskProvider.getTasksForChild(_selectedChild!) 
+        : [];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('家長控制台 - 任務看板'),
-        backgroundColor: Colors.blue[100],
-      ),
-      // 如果沒有任務顯示提示，有任務就顯示 ListView
-      body: tasks.isEmpty
-          ? const Center(child: Text('目前沒有任務，趕快按右下角新增吧！'))
-          : ListView.builder(
-              itemCount: tasks.length,
+      appBar: AppBar(title: const Text('任務管理')),
+      body: Column(
+        children: [
+          // 1. 小孩選擇列
+          Container(
+            height: 80,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: children.length,
               itemBuilder: (context, index) {
-                final task = tasks[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: ListTile(
-                    leading: const Icon(Icons.task_alt, color: Colors.blue),
-                    title: Text(task.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text('狀態: ${task.status.name}'),
-                    trailing: task.status == TaskStatus.underReview
-                      ? ElevatedButton(
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                          onPressed: () {
-                            // 1. 任務變更為已完成
-                            context.read<TaskProvider>().approveTask(task.id);
-                            // 2. 錢包發錢
-                            context.read<WalletProvider>().addCoins(task.rewardCoins);
-                          },
-                          child: const Text('核准發錢'),
-                        )
-                      : Text('${task.rewardCoins} 幣'),
+                final name = children[index];
+                final isSelected = _selectedChild == name;
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedChild = name),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: isSelected ? Colors.blue : Colors.grey[300],
+                          child: Icon(Icons.person, color: isSelected ? Colors.white : Colors.grey),
+                        ),
+                        Text(name, style: TextStyle(color: isSelected ? Colors.blue : Colors.black)),
+                      ],
+                    ),
                   ),
                 );
               },
             ),
-      // 右下角的浮動新增按鈕 (FAB)
+          ),
+          const Divider(),
+          
+          // 2. 任務列表 (顯示過濾後的 childTasks)
+          Expanded(
+            child: childTasks.isEmpty 
+              ? Center(child: Text(_selectedChild == null ? '請先選擇小孩' : '目前沒有任務，點擊右下角新增'))
+              : ListView.builder(
+                  itemCount: childTasks.length,
+                  itemBuilder: (context, index) {
+                    final task = childTasks[index];
+                    return ListTile(
+                      title: Text(task.title),
+                      subtitle: Text('獎勵：${task.rewardCoins} 影子幣'),
+                      trailing: Text(task.status.toString().split('.').last), 
+                    );
+                  },
+                ),
+          ),
+        ],
+      ),
+      
+      // 3. 新增任務按鈕
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // 跳轉到新增任務頁面
+          if (_selectedChild == null) return;
+          
+          final settings = groupProvider.memberSettings[_selectedChild!];
+          //現在先寫死關係驅動小孩
+          final personality = settings?['personality'] ?? ChildPersonality.dolphin;
+
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CreateTaskView()),
+            MaterialPageRoute(
+              builder: (context) => CreateTaskView(
+                childName: _selectedChild!,
+                personality: personality,
+              ),
+            ),
           );
         },
         child: const Icon(Icons.add),

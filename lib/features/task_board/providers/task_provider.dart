@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
 import '../models/task_model.dart';
-import '../../../core/mock/mock_database.dart';
+import '../../../core/mock/mock_database.dart'; // 引入 MockData
 
-//先寫死資料，之後再和service拿
 class TaskProvider extends ChangeNotifier {
-  // 從 MockData 讀取初始任務
-  final List<TaskModel> _tasks = MockData.initialTasks;
+  // 修改：從 MockData 取得初始任務 (使用 List.from)
+  final List<TaskModel> _tasks = List.from(MockData.initialTasks);
 
+  // 取得所有任務 (一般情況用不到，但保留著)
   List<TaskModel> get tasks => _tasks;
 
-  void addTask(String title, int coins) {
+  // 新增：過濾並取得「特定小孩」的任務
+  List<TaskModel> getTasksForChild(String childName) {
+    return _tasks.where((task) => task.assigneeName == childName).toList();
+  }
+
+  //修改：新增任務時，必須傳入是「分派給哪個小孩」
+  void addTask(String title, int coins, String assigneeName) {
     final newTask = TaskModel(
       id: 't_${DateTime.now().millisecondsSinceEpoch}',
       title: title,
       rewardCoins: coins,
+      assigneeName: assigneeName, // 存入被指派的小孩
     );
     _tasks.add(newTask);
     notifyListeners();
   }
+  
   void submitTaskForReview(String taskId) {
     final taskIndex = _tasks.indexWhere((t) => t.id == taskId);
     if (taskIndex != -1) {
@@ -26,7 +34,6 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  // 家長核准任務 (狀態變為已完成)
   void approveTask(String taskId) {
     final taskIndex = _tasks.indexWhere((t) => t.id == taskId);
     if (taskIndex != -1) {

@@ -9,13 +9,15 @@ enum TaskStatus {
 class TaskModel {
   final String id;
   final String title;
-  final int rewardCoins; // 影子幣獎勵
+  final int rewardCoins;
+  final String assigneeName; // 紀錄是分派給哪個小孩的
   TaskStatus status;
 
   TaskModel({
     required this.id,
     required this.title,
     required this.rewardCoins,
-    this.status = TaskStatus.available, // 預設狀態是待領取
+    required this.assigneeName, // 必填
+    this.status = TaskStatus.available,
   });
 }
