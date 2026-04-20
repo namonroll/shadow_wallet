@@ -35,22 +35,22 @@ class ChildJoinView extends StatelessWidget {
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: () async {
+                      // 1. 只負責叫 Provider 去做事
                       bool success = await context.read<GroupProvider>().joinGroup(_codeController.text);
-                      // ... 前面 success 判斷不變 ...
+                      
                       if (success) {
-                        String newGroupId = context.read<GroupProvider>().currentGroup!.id;
+                        // 2. 成功後的狀態更新（建議把 updateUserGroup 封裝進去，或保持這樣但只需處理導航）
+                        final newGroupId = context.read<GroupProvider>().currentGroup!.id;
                         context.read<AuthProvider>().updateUserGroup(newGroupId);
-                        
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('成功加入家庭！')),
-                        );
 
-                        // 🌟 關鍵修正：跳轉到「帶有導覽列」的外殼
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (_) => const ChildNavScaffold()), // 剛才寫的那個
-                          (route) => false, // 清空導航堆疊，防止按返回鍵回到加入頁
-                        );
+                        // 3. 導航
+                        if (context.mounted) {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (_) => const ChildNavScaffold()),
+                            (route) => false,
+                          );
+                        }
                       }
                     },
                     child: const Text('加入'),

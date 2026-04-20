@@ -1,31 +1,27 @@
+import '../../../core/mock/mock_database.dart'; // 引入統一資料倉庫
 import '../../../core/models/group_model.dart';
-//先寫死資料，之後再接後端
-class GroupMockService {
-  // 模擬資料庫中已經存在的一個家庭
-  final GroupModel _mockDatabaseGroup = GroupModel(
-    id: 'g_101',
-    name: '小明家',
-    joinCode: '9999', // 測試用的加入序號
-  );
 
+class GroupMockService {
   // 模擬：透過序號加入群組
   Future<GroupModel> joinGroupByCode(String code) async {
-    await Future.delayed(const Duration(seconds: 1)); // 模擬網路延遲1秒
+    await Future.delayed(const Duration(seconds: 1)); // 模擬網路延遲
     
-    if (code == _mockDatabaseGroup.joinCode) {
-      return _mockDatabaseGroup; // 序號正確，回傳群組資料
+    // 改為比對 MockData 裡的序號
+    if (code == MockData.testJoinCode) {
+      return MockData.initialGroup; 
     } else {
-      throw Exception('找不到該群組，請確認序號是否正確！'); // 序號錯誤
+      throw Exception('找不到該群組，請確認序號是否正確！');
     }
   }
 
   // 模擬：家長建立新群組
   Future<GroupModel> createGroup(String familyName) async {
     await Future.delayed(const Duration(seconds: 1));
+    // 這裡可以回傳一個基於 MockData 格式的新物件
     return GroupModel(
-      id: 'g_${DateTime.now().millisecondsSinceEpoch}', // 隨機產生ID
+      id: 'g_${DateTime.now().millisecondsSinceEpoch}',
       name: familyName,
-      joinCode: '9999', // 模擬產生的新序號
+      joinCode: MockData.testJoinCode, // 測試期間維持一致的序號方便測試
     );
   }
 }

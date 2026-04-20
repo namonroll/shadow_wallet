@@ -25,13 +25,6 @@
 
 ---
 
-## 📂 專案架構說明
-
-本專案採用 **功能模組化 (Feature-based)** 設計，將 UI、邏輯與資料層依照業務功能拆分，提升可維護性。
-
-<details>
-<summary> 點擊展開詳細目錄結構圖</summary>
-
 ```text
 lib/
 ├── main.dart            # 程式進入點 (初始化、Provider 綁定)
