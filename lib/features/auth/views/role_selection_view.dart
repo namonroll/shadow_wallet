@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/models/user_model.dart';
 import '../providers/auth_provider.dart';
-import '../../family_group/views/child_join_view.dart';
-import '../../family_group/views/parent_create_view.dart';
+import '../../../core/widgets/child_nav_scaffold.dart';
+import '../../../core/widgets/parent_nav_scaffold.dart';
 
 class RoleSelectionView extends StatelessWidget {
   @override
@@ -19,22 +19,33 @@ class RoleSelectionView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.read<AuthProvider>().setRoleAndLogin(UserRole.parent, '阿明');
-                Navigator.push(context, MaterialPageRoute(builder: (_) => ParentCreateView()));
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ParentNavScaffold()));
               },
               child: const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Text('家長', style: TextStyle(fontSize: 20)),
+                child: Text('阿明(家長)', style: TextStyle(fontSize: 20)),
               ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 context.read<AuthProvider>().setRoleAndLogin(UserRole.child, '小明');
-                Navigator.push(context, MaterialPageRoute(builder: (_) => ChildJoinView()));
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ChildNavScaffold()));
               },
               child: const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Text('小孩', style: TextStyle(fontSize: 20)),
+                child: Text('小明(小孩)', style: TextStyle(fontSize: 20)),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                context.read<AuthProvider>().setRoleAndLogin(UserRole.child, '小華');
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ChildNavScaffold()));
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text('小華(小孩)', style: TextStyle(fontSize: 20)),
               ),
             ),
           ],

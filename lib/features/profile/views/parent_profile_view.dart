@@ -33,7 +33,7 @@ class ParentProfileView extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.family_restroom, color: Colors.blue),
           title: const Text('我的家庭群組'),
-          subtitle: Text(user?.groupId ?? '尚未建立'),
+          subtitle: Text(user?.groupId ?? '9999'),
           trailing: IconButton(
             icon: const Icon(Icons.copy),
             onPressed: () {

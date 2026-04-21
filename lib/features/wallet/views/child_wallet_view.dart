@@ -19,7 +19,7 @@ class ChildWalletView extends StatelessWidget {
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Colors.orange, Colors.deepOrangeAccent],
+                colors: [Color.fromARGB(255, 135, 151, 216), Color.fromARGB(255, 113, 108, 255)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),

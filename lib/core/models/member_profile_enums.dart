@@ -15,10 +15,10 @@ enum ParentStyle { goalkeeper, manager, coach, sponsor }
 extension ParentStyleExt on ParentStyle {
   String get label {
     switch (this) {
-      case ParentStyle.goalkeeper: return '守門員型 (低時/高控/家務)';
-      case ParentStyle.manager: return '經理型 (高時/高控/規矩)';
-      case ParentStyle.coach: return '教練型 (高時/低控/探索)';
-      case ParentStyle.sponsor: return '贊助商型 (低時/低控/放養)';
+      case ParentStyle.goalkeeper: return '雙薪';
+      case ParentStyle.manager: return '疲勞';
+      case ParentStyle.coach: return '務實';
+      case ParentStyle.sponsor: return '高控';
     }
   }
 }

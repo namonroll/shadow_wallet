@@ -15,10 +15,15 @@ class _ParentMemberEditViewState extends State<ParentMemberEditView> {
   ParentStyle _selectedParentStyle = ParentStyle.coach;
   AgeGroup _selectedAgeGroup = AgeGroup.stage4;
 
+  // 新增的理財參數 (先以變數儲存前端狀態)
+  double _interestRate = 5.0; // 預設年利率 5%
+  double _exchangeRate = 1;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('設定 ${widget.memberName} 的個人化檔案')),
+      appBar: AppBar(title: Text('${widget.memberName} 的個人化設定')),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -30,8 +35,18 @@ class _ParentMemberEditViewState extends State<ParentMemberEditView> {
           _buildPersonalityChips(),
           const SizedBox(height: 24),
 
-          _buildSectionTitle('家長教育導向 (您對他的教養方式)'),
+          _buildSectionTitle('家長類型'),
           _buildParentStyleDropdown(),
+          const SizedBox(height: 40),
+
+          //利息設定區塊
+          _buildSectionTitle('利息設定'),
+          _buildInterestSlider(),
+          const SizedBox(height: 24),
+
+          //匯率設定區塊
+          _buildSectionTitle('匯率設定'),
+          _buildExchangeRateInput(),
           const SizedBox(height: 40),
 
           ElevatedButton(
@@ -40,8 +55,8 @@ class _ParentMemberEditViewState extends State<ParentMemberEditView> {
               backgroundColor: Colors.deepPurple,
             ),
             onPressed: () {
-              // TODO: 將設定好的選項存入 Provider 或後端
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('設定已儲存！')));
+              // TODO: 將 _interestRate 與 _exchangeRate 一併存入 Provider
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('設定已儲存')));
               Navigator.pop(context);
             },
             child: const Text('儲存設定', style: TextStyle(color: Colors.white, fontSize: 18)),
@@ -55,6 +70,69 @@ class _ParentMemberEditViewState extends State<ParentMemberEditView> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blueGrey)),
+    );
+  }
+  Widget _buildInterestSlider() {
+    return Card(
+      color: const Color.fromARGB(255, 255, 255, 255),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            Slider(
+              value: _interestRate,
+              min: 0,
+              max: 20, // 最高 20%
+              divisions: 40, // 每 0.5 一格
+              label: '${_interestRate.toStringAsFixed(1)}%',
+              onChanged: (val) => setState(() => _interestRate = val),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 使用輸入框或加減號設定匯率
+  Widget _buildExchangeRateInput() {
+    return Card(
+      color: const Color.fromARGB(255, 255, 255, 255),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.currency_exchange, color: Color.fromARGB(255, 255, 255, 255)),
+                const SizedBox(width: 10),
+                const Text('1 成長幣 = ', style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 10),
+                SizedBox(
+                  width: 80,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (val) {
+            
+                    },
+                    controller: TextEditingController(text: _exchangeRate.toStringAsFixed(0)),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                const Text('台幣 (NTD)', style: TextStyle(fontSize: 16)),
+              ],
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
     );
   }
 
