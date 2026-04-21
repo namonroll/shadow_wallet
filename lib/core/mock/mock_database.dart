@@ -20,8 +20,8 @@ class MockData {
       {'title': '運動紀錄連續 3 天', 'reward': 100},
     ],
     ChildPersonality.dolphin: [
-      {'title': '協助長輩準備晚餐', 'reward': 40},
-      {'title': '分享今天的一件好事', 'reward': 20},
+      {'title': '協助準備晚餐', 'reward': 40},
+      {'title': '掃地', 'reward': 20},
     ],
     ChildPersonality.cat: [
       {'title': '觀察並紀錄一種昆蟲', 'reward': 60},

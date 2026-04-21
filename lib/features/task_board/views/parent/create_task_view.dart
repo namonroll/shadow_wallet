@@ -31,7 +31,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // --- 推薦區塊 ---
-            Text('${widget.childName}的推薦任務)',
+            Text('${widget.childName}的推薦任務',
                 style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey)),
             const SizedBox(height: 10),
             SingleChildScrollView(

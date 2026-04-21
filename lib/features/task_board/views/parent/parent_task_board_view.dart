@@ -92,7 +92,7 @@ class _ParentTaskBoardViewState extends State<ParentTaskBoardView> {
                           
                           // 顯示成功提示
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('✅ 已核准任務！發放 ${task.rewardCoins} 幣。')),
+                            SnackBar(content: Text('已核准任務！發放 ${task.rewardCoins} 幣。')),
                           );
                         },
                         style: ElevatedButton.styleFrom(
