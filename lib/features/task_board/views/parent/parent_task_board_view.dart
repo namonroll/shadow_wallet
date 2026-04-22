@@ -5,6 +5,7 @@ import '../../providers/task_provider.dart';
 import 'create_task_view.dart';
 import '../../../../core/models/member_profile_enums.dart';
 import '../../models/task_model.dart';
+import '../../../wallet/providers/wallet_provider.dart';
 
 class ParentTaskBoardView extends StatefulWidget {
   const ParentTaskBoardView({super.key});
@@ -108,6 +109,7 @@ class _ParentTaskBoardViewState extends State<ParentTaskBoardView> {
                           ElevatedButton(
                             onPressed: () {
                               context.read<TaskProvider>().approveTask(task.id);
+                              context.read<WalletProvider>().addBalance(task.assigneeName, task.rewardCoins);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text('✅ 已核准！發放 ${task.rewardCoins} 幣。')),
                               );

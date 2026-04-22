@@ -5,8 +5,10 @@ import '../../core/models/member_profile_enums.dart';
 
 class MockData {
   // 1. 錢包初始餘額
-  static const int initialBalance = 1000;
-
+  static const Map<String, int> initialBalances = {
+    '小明': 1000,
+    '小華': 500,
+  };
   // 2. 預設任務列表 
   static List<TaskModel> get initialTasks => [
         TaskModel(id: 't_1', title: '洗碗', rewardCoins: 15,assigneeName: '小明'),

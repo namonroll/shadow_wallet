@@ -18,8 +18,8 @@ class _ChildNavScaffoldState extends State<ChildNavScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = context.watch<AuthProvider>();
-    final wallet = context.watch<WalletProvider>();
+    final user = context.watch<AuthProvider>().currentUser;
+    final balance = context.watch<WalletProvider>().getBalance(user?.name ?? '');
 
     // 如果還沒加入群組，強制顯示「加入頁面」，不顯示導覽列(Demo方便先關掉)
     //if (!auth.isInGroup) {
@@ -39,7 +39,7 @@ class _ChildNavScaffoldState extends State<ChildNavScaffold> {
         actions: [
           Center(child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text('💰 ${wallet.balance}     ', style: const TextStyle(fontWeight: FontWeight.bold)),
+            child: Text('💰 $balance     ', style: const TextStyle(fontWeight: FontWeight.bold)),
           ))
         ],
       ),
