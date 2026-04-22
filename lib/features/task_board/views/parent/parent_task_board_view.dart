@@ -85,21 +85,40 @@ class _ParentTaskBoardViewState extends State<ParentTaskBoardView> {
                     
                     if (task.status == TaskStatus.underReview) {
                       // 待審核狀態：顯示核准按鈕
-                      trailingWidget = ElevatedButton(
-                        onPressed: () {
-                          // 呼叫 Provider 執行核准邏輯
-                          context.read<TaskProvider>().approveTask(task.id);
+                      trailingWidget = Row(
+                        mainAxisSize: MainAxisSize.min, // 關鍵：讓 Row 只佔用必要的空間，否則會報錯
+                        children: [
+                          // --- 退回按鈕 ---
+                          TextButton(
+                            onPressed: () {
+                              // 呼叫 Provider 將狀態退回「可執行」
+                              context.read<TaskProvider>().rejectTask(task.id); 
+                              
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('已退回任務，孩子需重新提交')),
+                              );
+                            },
+                            style: TextButton.styleFrom(foregroundColor: Colors.red),
+                            child: const Text('退回'),
+                          ),
                           
-                          // 顯示成功提示
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('已核准任務！發放 ${task.rewardCoins} 幣。')),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                        ),
-                        child: const Text('審核通過', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                          const SizedBox(width: 8),
+
+                          // --- 核准按鈕 ---
+                          ElevatedButton(
+                            onPressed: () {
+                              context.read<TaskProvider>().approveTask(task.id);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('✅ 已核准！發放 ${task.rewardCoins} 幣。')),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                            ),
+                            child: const Text('核准', style: TextStyle(color: Colors.white)),
+                          ),
+                        ],
                       );
                     } else if (task.status == TaskStatus.completed) {
                       // 已完成狀態：顯示綠色勾勾文字

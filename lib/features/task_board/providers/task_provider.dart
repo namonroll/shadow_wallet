@@ -41,4 +41,15 @@ class TaskProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void rejectTask(String taskId) {
+    final taskIndex = _tasks.indexWhere((t) => t.id == taskId);
+    if (taskIndex != -1) {
+      // 將狀態改回「可執行」，讓小孩能再次看到並提交
+      _tasks[taskIndex].status = TaskStatus.available; 
+      notifyListeners();
+    }
+  }
 }
+
+  
