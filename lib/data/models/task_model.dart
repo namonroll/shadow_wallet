@@ -6,6 +6,7 @@ class Task {
   final String name;
   final TaskCategory category;
   final TaskDayType dayType;
+  final String description;
   final bool isLongTerm;
   final int baseCoin;
   final bool isActive;
@@ -16,6 +17,7 @@ class Task {
     required this.name,
     required this.category,
     required this.dayType,
+    required this.description,
     required this.isLongTerm,
     required this.baseCoin,
     this.isActive = true,
@@ -27,6 +29,7 @@ class Task {
     name: name ?? this.name,
     category: category,
     dayType: dayType,
+    description: description,
     isLongTerm: isLongTerm,
     baseCoin: baseCoin ?? this.baseCoin,
     isActive: isActive ?? this.isActive,
@@ -38,6 +41,7 @@ class Task {
     name: json['name'],
     category: TaskCategory.values.byName(json['category']),
     dayType: TaskDayType.values.byName(json['day_type']),
+    description: json['description'] ?? '',
     isLongTerm: json['is_long_term'],
     baseCoin: json['base_coin'],
     isActive: json['is_active'] ?? true,
@@ -49,6 +53,7 @@ class Task {
     'name': name,
     'category': category.name,
     'day_type': dayType.name,
+    'description': description,
     'is_long_term': isLongTerm,
     'base_coin': baseCoin,
     'is_active': isActive,
