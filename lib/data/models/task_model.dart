@@ -3,6 +3,7 @@ import '../enums.dart';
 class Task {
   final String taskId;
   final String familyId;
+  final String? targetChildId; // 可選，若為 null 代表全家通用
   final String name;
   final TaskCategory category;
   final TaskDayType dayType;
@@ -14,6 +15,7 @@ class Task {
   Task({
     required this.taskId,
     required this.familyId,
+    this.targetChildId,
     required this.name,
     required this.category,
     required this.dayType,
@@ -26,6 +28,7 @@ class Task {
   Task copyWith({String? name, bool? isActive, int? baseCoin}) => Task(
     taskId: taskId,
     familyId: familyId,
+    targetChildId: targetChildId,
     name: name ?? this.name,
     category: category,
     dayType: dayType,

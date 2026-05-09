@@ -38,6 +38,7 @@ class MockDatabase {
     Task(
       taskId: "task_01",
       familyId: "fam_001",
+      targetChildId: "C01",
       name: "自己整理書包",
       category: TaskCategory.A,
       dayType: TaskDayType.weekday,
@@ -48,6 +49,7 @@ class MockDatabase {
     Task(
       taskId: "task_02",
       familyId: "fam_001",
+      targetChildId: "C01",
       name: "練習鋼琴",
       category: TaskCategory.B,
       dayType: TaskDayType.weekend,
@@ -58,6 +60,7 @@ class MockDatabase {
     Task(
       taskId: "task_03",
       familyId: "fam_001",
+      targetChildId: "C01",
       name: "洗碗",
       category: TaskCategory.C,
       dayType: TaskDayType.weekday,

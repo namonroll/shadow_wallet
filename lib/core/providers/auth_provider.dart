@@ -11,7 +11,9 @@ class AuthProvider extends ChangeNotifier {
   // 2. 預載 MockDatabase 的實體資料 (未來替換成從 API fetch)
   final Child _childData = DataService.fetchChildInfo();
   final Parent _parentData = DataService.fetchParentInfo();
-
+  String get familyId => _parentData.familyId;
+  // 提供一個 getter 讓全 App 都能拿到目前的 FamilyId
+  
   // 取得狀態
   UserRole get currentRole => _currentRole;
   bool get isParent => _currentRole == UserRole.parent;

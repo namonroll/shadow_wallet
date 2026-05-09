@@ -11,7 +11,7 @@ class ChildTaskListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 使用封裝好的 getter 拿資料
-    final tasks = context.watch<TaskProvider>().availableTasks;
+    final tasks = context.watch<TaskProvider>().displayTasks;
 
     return ListView.builder(
       padding: const EdgeInsets.all(12),

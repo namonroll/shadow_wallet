@@ -44,7 +44,7 @@ class _ParentMainNavigationState extends State<ParentMainNavigation> {
         selectedItemColor: Colors.indigo,
         unselectedItemColor: Colors.grey,
         items: [
-          const BottomNavigationBarItem(icon: Icon(Icons.analytics), label: '數據'),
+          const BottomNavigationBarItem(icon: Icon(Icons.analytics), label: '回顧'),
           BottomNavigationBarItem(icon: Badge(child: const Icon(Icons.fact_check),),label:'任務',),
           const BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: '財務'),
           const BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
