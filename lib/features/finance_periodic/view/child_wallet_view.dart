@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/wallet_provider.dart';
-import '../../../data/enums.dart';
 
 class ChildWalletView extends StatelessWidget {
   const ChildWalletView({Key? key}) : super(key: key);
@@ -9,8 +8,8 @@ class ChildWalletView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<WalletProvider>();
-    final pocketMoney = provider.getWallet(WalletType.pocketMoney);
-    final savings = provider.getWallet(WalletType.savings);
+    final pocketMoney = provider.pocketMoneyWallet; 
+    final savings = provider.savingsWallet;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),

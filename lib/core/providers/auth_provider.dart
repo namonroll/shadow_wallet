@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/enums.dart';
-import '../../data/mock/mock_database.dart';
+import '../services/data_service.dart';
 import '../../data/models/child_model.dart';
 import '../../data/models/parent.dart';
 
@@ -9,8 +9,8 @@ class AuthProvider extends ChangeNotifier {
   UserRole _currentRole = UserRole.child;
   
   // 2. 預載 MockDatabase 的實體資料 (未來替換成從 API fetch)
-  final Child _childData = MockDatabase.child;
-  final Parent _parentData = MockDatabase.parent;
+  final Child _childData = DataService.fetchChildInfo();
+  final Parent _parentData = DataService.fetchParentInfo();
 
   // 取得狀態
   UserRole get currentRole => _currentRole;

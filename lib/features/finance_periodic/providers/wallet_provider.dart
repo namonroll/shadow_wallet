@@ -1,49 +1,46 @@
 import 'package:flutter/material.dart';
+import '../../../core/services/data_service.dart';
 import '../../../data/models/wallet.dart';
-import '../../../data/mock/mock_database.dart';
 import '../../../data/enums.dart';
 
 class WalletProvider extends ChangeNotifier {
-  List<Wallet> _wallets = MockDatabase.wallets;
+  final List<Wallet> _wallets = DataService.fetchWallets();
 
-  List<Wallet> get wallets => _wallets;
+  Wallet get pocketMoneyWallet => 
+      _wallets.firstWhere((w) => w.walletType == WalletType.pocketMoney);
 
-  // 取得特定類型的錢包
-  Wallet getWallet(WalletType type) => 
-      _wallets.firstWhere((w) => w.walletType == type);
+  Wallet get savingsWallet => 
+      _wallets.firstWhere((w) => w.walletType == WalletType.savings);
 
-  // 模擬收到任務獎勵
+  // --- 財務邏輯 (保留並集中管理) ---
+
   void addIncome(int amount) {
+    // 找到零用錢錢包的索引
     int index = _wallets.indexWhere((w) => w.walletType == WalletType.pocketMoney);
     if (index != -1) {
       _wallets[index] = _wallets[index].copyWith(
         balance: _wallets[index].balance + amount,
       );
-      notifyListeners();
+      notifyListeners(); // 通知 UI 更新紅字消失後的新數值
     }
   }
 
-  // 實作流程 C：利息計算與週期性結算
   void performWeeklySettlement() {
-    for (int i = 0; i < _wallets.length; i++) {
-      if (_wallets[i].walletType == WalletType.savings) {
-        // 計算利息：餘額 * 利率
-        double interest = _wallets[i].balance * _wallets[i].interestRate;
-        _wallets[i] = _wallets[i].copyWith(
-          balance: _wallets[i].balance + interest,
-          lastInterestAt: DateTime.now(),
-        );
-      }
-    }
-    notifyListeners();
-  }
-
-  // 家長調整利率
-  void updateInterestRate(double newRate) {
     int index = _wallets.indexWhere((w) => w.walletType == WalletType.savings);
     if (index != -1) {
-      _wallets[index] = _wallets[index].copyWith(interestRate: newRate);
+      double interest = _wallets[index].balance * _wallets[index].interestRate;
+      _wallets[index] = _wallets[index].copyWith(
+        balance: _wallets[index].balance + interest,
+        lastInterestAt: DateTime.now(),
+      );
       notifyListeners();
     }
   }
+  void updateInterestRate(double newRate) {
+  int index = _wallets.indexWhere((w) => w.walletType == WalletType.savings);
+  if (index != -1) {
+    _wallets[index] = _wallets[index].copyWith(interestRate: newRate);
+    notifyListeners(); // 這行很重要，這會讓 UI 的 % 數立即改變
+  }
+}
 }
