@@ -9,8 +9,7 @@ class ParentAuditView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 過濾出所有「待審核」的任務
-    final pendingTasks = context.watch<TaskProvider>().completions
-        .where((c) => c.status == TaskStatus.uncompleted).toList();
+    final pendingTasks = context.watch<TaskProvider>().pendingAuditList;
 
     return Column(
       children: [

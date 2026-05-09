@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../data/enums.dart';
 import '../../../../core/providers/auth_provider.dart';
 import '../../../../features/daily_tasks/view/parent_audit_view.dart';
 import '../../../../features/daily_tasks/providers/task_provider.dart';
@@ -26,8 +25,7 @@ class _ParentMainNavigationState extends State<ParentMainNavigation> {
   @override
   Widget build(BuildContext context) {
     // 監聽待審核數量，可以在 UI 上做標記 (Badge)
-    final pendingCount = context.watch<TaskProvider>().completions
-        .where((c) => c.status == TaskStatus.uncompleted).length;
+    final pendingTasks = context.watch<TaskProvider>().pendingAuditList.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,11 +50,11 @@ class _ParentMainNavigationState extends State<ParentMainNavigation> {
           const BottomNavigationBarItem(icon: Icon(Icons.analytics), label: '數據'),
           BottomNavigationBarItem(
             icon: Badge(
-              label: Text(pendingCount.toString()),
-              isLabelVisible: pendingCount > 0,
+              label: Text(pendingTasks.toString()),
+              isLabelVisible: pendingTasks > 0,
               child: const Icon(Icons.fact_check),
             ),
-            label: '審核',
+            label: '任務',
           ),
           const BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: '財務'),
           const BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),

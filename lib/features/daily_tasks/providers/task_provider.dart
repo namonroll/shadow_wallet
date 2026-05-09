@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/task_model.dart';
+import '../../../core/services/data_service.dart';
 import '../../../data/models/task_completion.dart';
-import '../../../data/mock/mock_database.dart';
+import '../../../data/models/task_model.dart';
 import '../../../data/enums.dart';
 
 class TaskProvider extends ChangeNotifier {
-  // 存放從 Mock 載入的原始任務
-  List<Task> _availableTasks = MockDatabase.sampleTasks;
-  // 存放任務完成記錄
-  List<TaskCompletion> _completions = [];
+  // 1. 內部狀態
+  final List<TaskCompletion> _completions = [];
+  final List<Task> _allTasks = DataService.fetchAllTasks();
 
-  List<Task> get availableTasks => _availableTasks;
-  List<TaskCompletion> get completions => _completions;
-  
+  // 3. 關鍵修正：加上 <Task>，這樣 UI 就不會拿到 dynamic
+  List<Task> get availableTasks => _allTasks;
 
-  // 孩子提交任務
+  // 專門給家長看的：待審核列表
+  List<TaskCompletion> get pendingAuditList => 
+      _completions.where((c) => c.status == TaskStatus.uncompleted).toList();
+
+  // 專門給孩子看的：今日已完成紀錄
+  List<TaskCompletion> get childFinishedToday => 
+      _completions.where((c) => c.status == TaskStatus.completed).toList();
+
+  // 3. 動作 (Actions)
   void submitTask(String taskId, String childId) {
     final newCompletion = TaskCompletion(
       completionId: "TC_${DateTime.now().millisecondsSinceEpoch}",
@@ -22,16 +28,14 @@ class TaskProvider extends ChangeNotifier {
       childId: childId,
       completedAt: DateTime.now(),
       reportedBy: UserRole.child,
-      status: TaskStatus.uncompleted, // 初始狀態為待審核
-      coinEarned: 0, 
+      status: TaskStatus.uncompleted,
+      coinEarned: 0,
       timeSavedMin: 0,
     );
-    
     _completions.add(newCompletion);
     notifyListeners();
   }
 
-  // 家長審核任務
   void auditTask(String completionId, TaskStatus newStatus, int reward) {
     int index = _completions.indexWhere((c) => c.completionId == completionId);
     if (index != -1) {
