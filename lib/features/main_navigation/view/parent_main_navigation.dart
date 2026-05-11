@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/providers/auth_provider.dart';
 import '../../../../features/daily_tasks/view/parent_task_manage_view.dart';
+import '../../../../features/reports/view/report_dashboard_view.dart';
 import '../../../../features/finance_periodic/view/parent_finance_view.dart';
 
 class ParentMainNavigation extends StatefulWidget {
@@ -15,7 +16,7 @@ class _ParentMainNavigationState extends State<ParentMainNavigation> {
   int _currentIndex = 0;
   
   final List<Widget> _screens = const [
-    Center(child: Text('家庭儀表板 (開發中)')),
+    ReportDashboardView(),
     ParentTaskManageView(), // 第二頁：任務管理頁面
     ParentFinanceView(), // 第三頁：財務頁面
     Center(child: Text('系統設定')),
@@ -45,7 +46,7 @@ class _ParentMainNavigationState extends State<ParentMainNavigation> {
         unselectedItemColor: Colors.grey,
         items: [
           const BottomNavigationBarItem(icon: Icon(Icons.analytics), label: '回顧'),
-          BottomNavigationBarItem(icon: Badge(child: const Icon(Icons.fact_check),),label:'任務',),
+          BottomNavigationBarItem(icon: Icon(Icons.fact_check), label: '任務'),
           const BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: '財務'),
           const BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
         ],

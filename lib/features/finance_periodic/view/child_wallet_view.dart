@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/wallet_provider.dart';
+import 'widgets/settlement_card.dart';
 
 class ChildWalletView extends StatelessWidget {
   const ChildWalletView({Key? key}) : super(key: key);
@@ -11,28 +12,16 @@ class ChildWalletView extends StatelessWidget {
     final pocketMoney = provider.pocketMoneyWallet; 
     final savings = provider.savingsWallet;
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          _buildWalletCard(
-            title: "我的零用錢",
-            amount: pocketMoney.balance,
-            color: Colors.orange.shade100,
-            icon: Icons.monetization_on,
-          ),
-          const SizedBox(height: 16),
-          _buildWalletCard(
-            title: "我的儲蓄金 (利息: ${(savings.interestRate * 100).toInt()}%)",
-            amount: savings.balance,
-            color: Colors.blue.shade100,
-            icon: Icons.account_balance,
-          ),
-          const Spacer(),
-          const Text("小提示：把錢放進儲蓄金，每週日會長出更多錢喔！"),
-        ],
-      ),
-    );
+    return ListView(
+  padding: const EdgeInsets.all(16),
+    children: [
+      const SettlementCard(), // 這裡會顯示週日結算產生的利息報告
+      const SizedBox(height: 16),
+      _buildWalletCard(title: "我的零用錢", amount: pocketMoney.balance, color: Colors.orange.shade100, icon: Icons.account_balance_wallet),
+      const SizedBox(height: 16),
+      _buildWalletCard(title: "我的儲蓄金", amount: savings.balance, color: Colors.blue.shade100, icon: Icons.account_balance),
+    ],
+);
   }
 
   Widget _buildWalletCard({required String title, required double amount, required Color color, required IconData icon}) {
