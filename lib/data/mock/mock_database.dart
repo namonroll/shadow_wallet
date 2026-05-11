@@ -7,6 +7,7 @@ import '../models/child_profile.dart';
 import '../models/wallet.dart';
 import '../models/task_completion.dart';
 import '../enums.dart';
+import '../models/report_model.dart';
 
 class MockDatabase {
   // 1. 家庭與成員
@@ -38,7 +39,6 @@ class MockDatabase {
     Task(
       taskId: "task_01",
       familyId: "fam_001",
-      targetChildId: "C01",
       name: "自己整理書包",
       category: TaskCategory.A,
       dayType: TaskDayType.weekday,
@@ -49,7 +49,6 @@ class MockDatabase {
     Task(
       taskId: "task_02",
       familyId: "fam_001",
-      targetChildId: "C01",
       name: "練習鋼琴",
       category: TaskCategory.B,
       dayType: TaskDayType.weekend,
@@ -60,7 +59,6 @@ class MockDatabase {
     Task(
       taskId: "task_03",
       familyId: "fam_001",
-      targetChildId: "C01",
       name: "洗碗",
       category: TaskCategory.C,
       dayType: TaskDayType.weekday,
@@ -82,6 +80,26 @@ class MockDatabase {
     OverrideRecord(
       overrideId: "OR01", completionId: "TC01", parentId: "P01", 
       overrideType: OverrideType.reward, coinDeducted: 0, creditFlag: true, reason: "表現優異額外獎勵"
+    ),
+  ];
+  static List<MonthlyReport> monthlyReports = [
+    MonthlyReport(
+      reportId: "REP_2026_03_child_1",
+      childId: "child_1", // 必須對應到你任務中的 childId
+      year: 2026,
+      month: 3,
+      totalTasksCompleted: 15,
+      totalCoinsEarned: 150,
+      motivationAnalysis: "小明本月表現穩定，特別是在『做家事』類別展現了高度的主動性！建議下個月可以嘗試給予更具挑戰性的目標。",
+    ),
+    MonthlyReport(
+      reportId: "REP_2026_04_child_1",
+      childId: "child_1",
+      year: 2026,
+      month: 4,
+      totalTasksCompleted: 22,
+      totalCoinsEarned: 220,
+      motivationAnalysis: "本月進步神速！完成率提升了 40%，動機光譜顯示已從『外在獎勵驅動』逐漸轉向『成就感驅動』。",
     ),
   ];
 }

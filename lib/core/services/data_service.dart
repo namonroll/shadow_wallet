@@ -3,6 +3,7 @@ import '../../../data/models/task_model.dart';
 import '../../../data/models/wallet.dart';
 import '../../../data/models/child_model.dart';
 import '../../../data/models/parent.dart';
+import '../../../data/models/report_model.dart';
 
 class DataService {
   // 模擬從資料庫/API 獲取原始數據
@@ -10,7 +11,11 @@ class DataService {
   static List<Wallet> fetchWallets() => MockDatabase.wallets;
   static Child fetchChildInfo() => MockDatabase.child;
   static Parent fetchParentInfo() => MockDatabase.parent;
-
+  static List<MonthlyReport> fetchMonthlyReports() => MockDatabase.monthlyReports;
+  static void saveSettlementLog(Map<String, dynamic> log) {
+    // 未來這裡會 POST 到後端 API
+    print("存入結算紀錄: $log");
+  }
   static void insertTask(Task newTask) {
     // 未來替換成 HTTP POST
     // MockDatabase.sampleTasks.add(newTask);
